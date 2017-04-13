@@ -13,7 +13,6 @@ extern crate docopt;
 use docopt::Docopt;
 
 use std::cmp::Ordering;
-use std::cmp::max;
 
 use std::fs::File;
 
@@ -162,9 +161,9 @@ fn pagerank<G: EdgeMapper>(graph: &G, nodes: u32, alpha: f32)
 
     graph.map_edges(|x, _| { deg[x as usize] += 1f32 });
 
-    for _iteration in (0 .. 20) {
+    for _iteration in 0 .. 20 {
         println!("Iteration: {}", _iteration);
-        for node in (0 .. nodes) {
+        for node in 0 .. nodes {
             src[node as usize] = alpha * dst[node as usize] / deg[node as usize];
             dst[node as usize] = 1f32 - alpha;
         }
@@ -208,7 +207,7 @@ fn union_find<G: EdgeMapper>(graph: &G, nodes: u32)
     });
 
     let mut non_roots = 0u32;
-    for i in (0 .. roots.len()) { if i as u32 != roots[i] { non_roots += 1; }}
+    for i in 0 .. roots.len() { if i as u32 != roots[i] { non_roots += 1; }}
     println!("{} non-roots found", non_roots);
 }
 
@@ -233,6 +232,6 @@ fn label_propagation<G: EdgeMapper>(graph: &G, nodes: u32)
     }
 
     let mut non_roots = 0u32;
-    for i in (0 .. label.len()) { if i as u32 != label[i] { non_roots += 1; }}
+    for i in 0 .. label.len() { if i as u32 != label[i] { non_roots += 1; }}
     println!("{} non-roots found", non_roots);
 }
